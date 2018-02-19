@@ -1,3 +1,5 @@
+**THIS README IS OUT OF DATE, UPDATE COMING... SOON?**
+
 # Custom Context Menu
 Create custom styled, unlimited nested Context Menues on your site. _No dependencies. Less than 2kB (gzipped and minified)._
 

@@ -1,17 +1,25 @@
 {
-  "name": "custom-context-menu",
-  "version": "1.3.11",
-  "description": "A small (<2kB minified and gzipped) tool with no dependencies that helps you create custom rightclick context menues.",
-  "keywords": [
-    "context-menu",
-    "contextmenu",
-    "right-click",
-    "rightclick",
-    "menu"
-  ],
-  "repository": "https://github.com/smellyshovel/custom-context-menu",
-  "homepage": "https://smellyshovel.github.com/custom-context-menu",
-  "bugs": "https://github.com/smellyshovel/custom-context-menu/issues",
-  "author": "Matthew Mamonov <g.smellyshovel@gmail.com>",
-  "license": "GPL-3.0"
+	"name": "custom-context-menu",
+	"version": "2.0.0",
+	"description": "A small library with no dependencies to help you create custom context menus",
+	"keywords": [
+		"context-menu",
+		"contextmenu",
+		"right-click",
+		"rightclick",
+		"menu",
+		"typescript"
+	],
+	"homepage": "https://github.com/neilrackett/custom-context-menu",
+	"repository": "https://github.com/neilrackett/custom-context-menu",
+	"bugs": "https://github.com/neilrackett/custom-context-menu/issues",
+	"contributors": [
+		"Neil Rackett (https://github.com/neilrackett)",
+		"Matthew Mamonov <g.smellyshovel@gmail.com>"
+	],
+	"license": "GPL-3.0",
+	"files": [
+		"ContextMenu.ts"
+	],
+	"main": "ContextMenu.ts"
 }
