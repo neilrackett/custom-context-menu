@@ -9,7 +9,8 @@ Create custom context menus with unlimited sub-menus for your web site or applic
 1. [Contribution](#contribution)
 
 ## [Installation](#installation)
-1. Using the NPM:
+
+1. Using NPM:
 
 ```bash
 $ npm install https://github.com/neilrackett/custom-context-menu/ --save
@@ -17,17 +18,15 @@ $ npm install https://github.com/neilrackett/custom-context-menu/ --save
 
 1. Standalone
 
-Download the [latest version](https://github.com/neilrackett/custom-context-menu/releases) of this package and import `ContextMenu`:
-
-```javascript
-import { ContextMenu } from './path/to/ContextMenu';
-```
+Download the [latest version](https://github.com/neilrackett/custom-context-menu/releases) of this package and add `ContextMenu.ts` to your class library.
 
 ## [Usage](#usage)
 
-All you have to do in order to get your custom context menu working is to invoke the `new ContextMenu()` constructor passing it an options object, as defined by `IContextMenuOptions`, and (optionally) the target element and a mouse or pointer event type:
+All you have to do in order to get your custom context menu working is import the classes and create a `new ContextMenu()` with an options object, as defined by `IContextMenuOptions`, and (optionally) the target element and a mouse or pointer event type:
 
 ```javascript
+import { ContextMenu, ContextMenuItem, ContextMenuDivider, ContextMenuSubMenu } from './path/to/ContextMenu';
+
 new ContextMenu(
     {
         transfer: false, // do not transfer the Context Menu if it doesn't fit on the page. Istead, draw it right in the corner
@@ -36,9 +35,9 @@ new ContextMenu(
         noRecreate: true, // do not open another Context Menu after the first one has been closed via rightclick
 
         items: [ // the items of your menu
-            new ContextMenuItems("Menu Item", () => alert("It's alive!"),
+            new ContextMenuItem("Menu Item", () => alert("It's alive!"),
             new ContextMenuDivider(),
-            new ContextMenuItems("Another Menu Item", makeSomethingAwesome)
+            new ContextMenuItem("Another Menu Item", makeSomethingAwesome)
         ]
     },
     document,
