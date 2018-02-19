@@ -6,7 +6,6 @@ Create custom context menus with unlimited sub-menus for your web site or applic
 1. [Installation](#installation)
 1. [Usage](#usage)
     * [Nested Context Menues](#nested-context-menues)
-1. [Documentation](#documentation)
 1. [Contribution](#contribution)
 
 ## [Installation](#installation)
