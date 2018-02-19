@@ -1,6 +1,6 @@
 # Custom Context Menu
 
-Create custom styled, context menus with unlimited sub-menus on your web site or application with _no dependencies.
+Create custom context menus with unlimited sub-menus for your web site or application with _no dependencies_ and using less than 2KB (minified and gzipped).
 
 ## Content
 1. [Installation](#installation)
