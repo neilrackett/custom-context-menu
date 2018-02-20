@@ -28,7 +28,7 @@ export class ContextMenu
 
 	private _open:(event:MouseEvent) => void = function(){};
 
-	constructor(options?:ContextMenuOptions, target?:HTMLElement, eventType:string="contextmenu")
+	constructor(options?:ContextMenuOptions, target?:HTMLElement, eventType:string='contextmenu')
 	{
 		options || (options = {});
 		options.items || (this.options.items = []);
@@ -50,7 +50,7 @@ export class ContextMenu
 			}
 
 			// prepare and draw overlay if needed
-			if (this.options.overlay)
+			if (this.options.overlay !== false)
 			{
 				// force disable scrolling if using an overlay
 				scrollingDisabled = overflow = this._disableScrolling();
@@ -76,7 +76,7 @@ export class ContextMenu
 			this._drawCM(pos);
 
 			// execute open callback (or a blank function if none)
-			this._getCallback("open")();
+			this._getCallback('open')();
 
 			// execute callback when CM close happened
 			this._listenToCMClosed((event:any) =>
@@ -91,7 +91,7 @@ export class ContextMenu
 				}
 
 				// execute close callback (or a blank function if none)
-				this._getCallback("close")();
+				this._getCallback('close')();
 			});
 		};
 
@@ -135,25 +135,25 @@ export class ContextMenu
 
 	protected _getCallback(after:string):Function
 	{
-		if ("callback" in this.options)
+		if ('callback' in this.options)
 		{
 			let callback = this.options.callback;
 
-			if (after === "open")
+			if (after === 'open')
 			{
-				if (typeof callback === "function")
+				if (typeof callback === 'function')
 				{
 					return callback;
 				}
 
-				if ("open" in callback && typeof callback.open === "function")
+				if ('open' in callback && typeof callback.open === 'function')
 				{
 					return callback.open;
 				}
 			}
-			else if (after === "close")
+			else if (after === 'close')
 			{
-				if ("close" in callback && typeof callback.close === "function")
+				if ('close' in callback && typeof callback.close === 'function')
 				{
 					return callback.close;
 				}
@@ -181,7 +181,7 @@ export class ContextMenu
 		let previousState = getComputedStyle(document.documentElement).overflow;
 
 		// disable scrolling via overflow set to `hidden`
-		document.documentElement.style.overflow = "hidden";
+		document.documentElement.style.overflow = 'hidden';
 
 		return previousState;
 	}
@@ -192,7 +192,7 @@ export class ContextMenu
 		document.documentElement.style.overflow = state;
 	}
 
-	protected _addContextMenuListener(target:HTMLElement, callback:Function, type:string="contextmenu"):void
+	protected _addContextMenuListener(target:HTMLElement, callback:Function, type:string='contextmenu'):void
 	{
 		target.addEventListener(type, (event:MouseEvent) =>
 		{
@@ -224,7 +224,7 @@ export class ContextMenu
 			[
 				{
 					t: document,
-					e: "mousedown",
+					e: 'mousedown',
 					cb: (event:any) =>
 					{
 						if (event.which !== 3) callback(event);
@@ -233,7 +233,7 @@ export class ContextMenu
 
 				{
 					t: this.overlay,
-					e: "contextmenu",
+					e: 'contextmenu',
 					cb: (event:any) =>
 					{
 						event.stopPropagation();
@@ -250,7 +250,7 @@ export class ContextMenu
 			[
 				{
 					t: document,
-					e: "mousedown",
+					e: 'mousedown',
 					cb: (event:any) => callback(event)
 				},
 			];
@@ -260,7 +260,7 @@ export class ContextMenu
 		this.eventListeners.push
 		({
 				t: document,
-				e: "keydown",
+				e: 'keydown',
 				cb: (event:any) =>
 				{
 					if (event.keyCode === 27) callback(event);
@@ -280,8 +280,8 @@ export class ContextMenu
 	 */
 	protected _prepareOverlay()
 	{
-		this.overlay = document.createElement("div");
-		this.overlay.classList.add("contextmenu-overlay");
+		this.overlay = document.createElement('div');
+		this.overlay.classList.add('contextmenu-overlay');
 
 		if (this.options.id)
 		{
@@ -293,14 +293,14 @@ export class ContextMenu
 			width = scrollLeft + document.documentElement.clientWidth,
 			height = scrollTop + document.documentElement.clientHeight;
 
-		this.overlay.style.position = "absolute";
-		this.overlay.style.display = "block";
-		this.overlay.style.left = "0";
-		this.overlay.style.top = "0";
-		this.overlay.style.width = width + "px";
-		this.overlay.style.height = height + "px";
-		this.overlay.style.visibility = "hidden";
-		this.overlay.style.zIndex = "2147483645";
+		this.overlay.style.position = 'absolute';
+		this.overlay.style.display = 'block';
+		this.overlay.style.left = '0';
+		this.overlay.style.top = '0';
+		this.overlay.style.width = width + 'px';
+		this.overlay.style.height = height + 'px';
+		this.overlay.style.visibility = 'hidden';
+		this.overlay.style.zIndex = '2147483645';
 
 		document.body.appendChild(this.overlay);
 	}
@@ -312,19 +312,19 @@ export class ContextMenu
 		{
 			if (item instanceof ContextMenuDivider)
 			{
-				let node = document.createElement("div");
-				node.classList.add("contextmenu-divider");
+				let node = document.createElement('div');
+				node.classList.add('contextmenu-divider');
 
 				return node;
 			}
 
 			let text = document.createTextNode(item.title);
-			let node = document.createElement("li");
+			let node = document.createElement('li');
 
-			node.classList.add("contextmenu-item");
+			node.classList.add('contextmenu-item');
 			node.appendChild(text);
 
-			if (item.disabled) node.classList.add("contextmenu-disabled");
+			if (item.disabled) node.classList.add('contextmenu-disabled');
 
 			// if the purpose of the item is to open another CM
 			if (item.listener instanceof ContextMenuSubMenu)
@@ -332,9 +332,9 @@ export class ContextMenu
 				// ensure that given param's type is number else make it equals zero
 				let openDelay = (item.listener.options.delayOpen || 0) * 1000;
 
-				node.classList.add("contextmenu-submenu");
+				node.classList.add('contextmenu-submenu');
 
-				node.addEventListener("mouseenter", (event:any) =>
+				node.addEventListener('mouseenter', (event:any) =>
 				{
 					this.timer = setTimeout(() =>
 					{
@@ -355,10 +355,10 @@ export class ContextMenu
 					}, openDelay);
 				});
 
-				node.addEventListener("mouseleave", (event:MouseEvent) => clearTimeout(this.timer), false);
+				node.addEventListener('mouseleave', (event:MouseEvent) => clearTimeout(this.timer), false);
 
 				// open CSM immidiatly
-				node.addEventListener("mousedown", (event:MouseEvent) =>
+				node.addEventListener('mousedown', (event:MouseEvent) =>
 				{
 					clearTimeout(this.timer);
 
@@ -380,7 +380,7 @@ export class ContextMenu
 				// this timeout is needed to prevent an item to be treated as
 				// 'mouseupped' in case of random mouse movement right after
 				// the CM has been opened
-				node.addEventListener("mouseup", (event:MouseEvent) =>
+				node.addEventListener('mouseup', (event:MouseEvent) =>
 				{
 					event.preventDefault();
 					event.stopPropagation();
@@ -392,9 +392,9 @@ export class ContextMenu
 			}
 
 			// prevent CM close
-			node.addEventListener("mousedown", (event:MouseEvent) => event.stopPropagation());
+			node.addEventListener('mousedown', (event:MouseEvent) => event.stopPropagation());
 
-			node.addEventListener("contextmenu", (event:MouseEvent) =>
+			node.addEventListener('contextmenu', (event:MouseEvent) =>
 			{
 				event.stopPropagation();
 				event.preventDefault();
@@ -407,14 +407,14 @@ export class ContextMenu
 	protected _prepareCM()
 	{
 		// create the CM element
-		this.cm = document.createElement("ol");
-		this.cm.classList.add("contextmenu");
+		this.cm = document.createElement('ol');
+		this.cm.classList.add('contextmenu');
 
 		// necsessary styles
-		this.cm.style.position = "absolute";
-		this.cm.style.display = "block";
-		this.cm.style.visibility = "hidden";
-		this.cm.style.zIndex = "2147483646";
+		this.cm.style.position = 'absolute';
+		this.cm.style.display = 'block';
+		this.cm.style.visibility = 'hidden';
+		this.cm.style.zIndex = '2147483646';
 
 		// make every item the child of the CM
 		this.itemsToRender.forEach((item) =>
@@ -436,19 +436,19 @@ export class ContextMenu
 	protected _drawOverlay():void
 	{
 		// make overlay visible
-		this.overlay.style.visibility = "visible";
+		this.overlay.style.visibility = 'visible';
 	}
 
 	protected _drawCM(pos:any):void
 	{
 		// make CM visible on the calculated position
-		this.cm.style.left = pos.x + "px";
-		this.cm.style.top = pos.y + "px";
-		this.cm.style.visibility = "visible";
+		this.cm.style.left = pos.x + 'px';
+		this.cm.style.top = pos.y + 'px';
+		this.cm.style.visibility = 'visible';
 
 		// add css transitions and animations
-		this.cm.classList.remove("contextmenu-invisible");
-		this.cm.classList.add("contextmenu-visible");
+		this.cm.classList.remove('contextmenu-invisible');
+		this.cm.classList.add('contextmenu-visible');
 	}
 
 	protected _prepareForClose(triggeredByRoot:any):void
@@ -537,9 +537,9 @@ export class ContextMenuSubMenu extends ContextMenu
 			if (transition)
 			{
 				// add css transitions and animations
-				this.cm.classList.remove("contextmenu-visible");
-				this.cm.classList.add("contextmenu-invisible");
-				this.cm.addEventListener("transitionend", (event:any) => this.cm.remove(), false);
+				this.cm.classList.remove('contextmenu-visible');
+				this.cm.classList.add('contextmenu-invisible');
+				this.cm.addEventListener('transitionend', (event:any) => this.cm.remove(), false);
 			}
 			else
 			{
@@ -573,7 +573,7 @@ export class ContextMenuSubMenu extends ContextMenu
 		this._drawCM(pos); // from ContextMenu
 
 		// execute open callback (or a blank function if none)
-		this._getCallback("open")();
+		this._getCallback('open')();
 
 		// execute callback when CSM close happened
 		this._listenToCSMClosed((event:any) =>
@@ -585,7 +585,7 @@ export class ContextMenuSubMenu extends ContextMenu
 				this.close();
 
 				// execute open callback (or a blank function if none)
-				this._getCallback("close")();
+				this._getCallback('close')();
 			}
 		});
 
@@ -601,7 +601,7 @@ export class ContextMenuSubMenu extends ContextMenu
 		[
 			{ // if mouse leaves the callee (CSM untouched)
 				t: this.callee,
-				e: "mouseleave",
+				e: 'mouseleave',
 				f: (event:any) =>
 				{
 					this.closeTimer = setTimeout(() => callback(event), closeDelay);
@@ -610,14 +610,14 @@ export class ContextMenuSubMenu extends ContextMenu
 
 			{ // if mouse returns to the callee
 				t: this.callee,
-				e: "mouseenter",
+				e: 'mouseenter',
 				f: (event:any) => clearTimeout(this.closeTimer)
 			},
 
 			// tODO: think about this behavior. May be it's better to add mouseenter to this.parent.cm
 			{ // if mouse retuns to the parent CM (or CSM)
 				t: this.cm,
-				e: "mouseleave",
+				e: 'mouseleave',
 				f: (event:any) =>
 				{
 					// if there is an opened CSM by this CSM
@@ -638,7 +638,7 @@ export class ContextMenuSubMenu extends ContextMenu
 
 			{ // if the mouse enters the CSM
 				t: this.cm,
-				e: "mouseenter",
+				e: 'mouseenter',
 				f: (event:any) => clearTimeout(this.closeTimer)
 			}
 		];
